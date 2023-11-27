@@ -2,7 +2,6 @@ import duration from 'dayjs/plugin/duration';
 
 // https://github.com/iamkun/dayjs/issues/1619#issuecomment-1613627247
 const rounding = (option, dayjsClass, dayjsFactory) => {
-  console.log('duration!!', duration);
   dayjsFactory.extend(duration);
 
   const _round = function (amount, unit, method) {

@@ -1,5 +1,6 @@
 import { Table } from 'antd';
-import hljs from 'highlight.js';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { parseStatusCode } from 'src/utils';
 
@@ -38,8 +39,9 @@ const Logs = ({ logJsons }) => {
     })),
     expandable: {
       expandedRowRender: (record) => (
-        // <pre dangerouslySetInnerHTML={hljs.highlightAuto(record, { languate: 'json' }).value} />
-        <pre>{JSON.stringify(record, null, 2)}</pre>
+        <SyntaxHighlighter language="json" style={docco}>
+          {JSON.stringify(record, null, 2)}
+        </SyntaxHighlighter>
       ),
     },
   };
