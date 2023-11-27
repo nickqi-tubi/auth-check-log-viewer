@@ -40,7 +40,7 @@ export const getChartConfig = (logJsons) => {
 
     return {
       statusCode,
-      time: dayjs(json.time).round(10, 'seconds').format('YYYY-MM-DD HH:mm:ss'),
+      time: dayjs(json.time).round(5, 'seconds').format('YYYY-MM-DD HH:mm:ss'),
     };
   });
 
@@ -93,9 +93,12 @@ export const getChartConfig = (logJsons) => {
         formatter: (value) => `${100 * value}%`,
       },
     },
-    smooth: true,
+    slider: {
+      trendCfg: {
+        isArea: true,
+      },
+    },
   };
 
-  console.log('config!!', config);
   return config;
 };
