@@ -3,6 +3,7 @@ import { Button, Upload, Typography } from 'antd';
 import { useState } from 'react';
 
 import Chart from 'src/components/chart';
+import Logs from 'src/components/logs';
 import { parseContentToJsons, getChartConfig } from 'src/utils';
 
 import styles from './App.module.scss';
@@ -32,6 +33,7 @@ const App = () => {
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
       <Chart config={getChartConfig(logJsons)} />
+      <Logs logJsons={logJsons} />
     </div>
   );
 };
