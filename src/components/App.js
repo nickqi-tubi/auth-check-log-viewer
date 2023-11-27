@@ -1,6 +1,8 @@
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Upload } from 'antd';
+import { Button, Upload, Typography } from 'antd';
 import { useState } from 'react';
+
+import { parseContentToJsons } from 'src/utils';
 
 import styles from './App.module.scss';
 
@@ -12,34 +14,21 @@ const App = () => {
 
     beforeUpload: (file) => {
       const reader = new FileReader();
-
       reader.onload = (e) => {
-        setLogJsons(
-          e.target.result
-            .split('\n')
-            .map((line) => {
-              try {
-                return JSON.parse(line);
-              } catch (e) {
-                return null;
-              }
-            })
-            .filter(Boolean),
-        );
+        setLogJsons(parseContentToJsons(e.target.result));
       };
-
       reader.readAsText(file);
-
-      // Prevent upload
-      return false;
+      return false; // Prevent upload
     },
 
     showUploadList: false,
   };
 
+  console.log('logJsons!!', logJsons);
+
   return (
     <div className={styles.root}>
-      <h1>Log Viewer</h1>
+      <Typography.Title level={1}>Log Viewer</Typography.Title>
       <Upload {...uploadProps}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
