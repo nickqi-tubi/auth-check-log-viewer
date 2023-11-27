@@ -48,8 +48,8 @@ const Logs = ({ data }) => {
   };
 
   const fuse = new Fuse(data, {
-    includeScore: true,
     keys: ['time', 'statusCode', 'msg'],
+    threshold: 0.3,
   });
 
   const dataSource = searchTerm ? fuse.search(searchTerm).map(({ item }) => item) : data;
