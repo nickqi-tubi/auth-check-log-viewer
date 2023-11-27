@@ -35,27 +35,46 @@ export const parseStatusCode = (json) => {
 };
 
 export const getChartConfig = (logJsons) => {
-  const data = logJsons
-    .map((json) => {
-      const statusCode = parseStatusCode(json);
+  const originData = logJsons.map((json) => {
+    const statusCode = parseStatusCode(json);
 
-      return {
-        statusCode,
-        time: dayjs(json.time).round(10, 'seconds').format('YYYY-MM-DD HH:mm:ss'),
-      };
-    })
-    .reduce((acc, curr) => {
-      const item = _.find(acc, _.pick(curr, ['time', 'statusCode']));
+    return {
+      statusCode,
+      time: dayjs(json.time).round(10, 'seconds').format('YYYY-MM-DD HH:mm:ss'),
+    };
+  });
+
+  const statusCodes = _.uniq(originData.map((item) => item.statusCode));
+  const times = _.uniq(originData.map((item) => item.time));
+
+  const dataWithCount = originData.reduce((acc, curr) => {
+    const item = _.find(acc, _.pick(curr, ['time', 'statusCode']));
+    if (item) {
+      item.count++;
+    } else {
+      acc.push({
+        ...curr,
+        count: 1,
+      });
+    }
+    return acc;
+  }, []);
+
+  const data = times.reduce((acc, curr) => {
+    statusCodes.forEach((statusCode) => {
+      const item = _.find(dataWithCount, { time: curr, statusCode });
       if (item) {
-        item.count++;
+        acc.push(item);
       } else {
         acc.push({
-          ...curr,
-          count: 1,
+          time: curr,
+          statusCode,
+          count: 0,
         });
       }
-      return acc;
-    }, []);
+    });
+    return acc;
+  }, []);
 
   const config = {
     data,

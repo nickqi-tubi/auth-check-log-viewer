@@ -1,10 +1,10 @@
 import duration from 'dayjs/plugin/duration';
 
+// https://github.com/iamkun/dayjs/issues/1619#issuecomment-1613627247
 const rounding = (option, dayjsClass, dayjsFactory) => {
   console.log('duration!!', duration);
   dayjsFactory.extend(duration);
 
-  // @see https://stackoverflow.com/a/39637877
   const _round = function (amount, unit, method) {
     const duration = dayjsFactory.duration(amount, unit);
     return dayjsFactory(Math[method](this.valueOf() / duration.as('milliseconds')) * duration.as('milliseconds'));
