@@ -3,7 +3,7 @@ import { Button, Upload, Typography } from 'antd';
 import { useState } from 'react';
 
 import Chart from 'src/components/chart';
-import { parseContentToJsons } from 'src/utils';
+import { parseContentToJsons, getChartConfig } from 'src/utils';
 
 import styles from './App.module.scss';
 
@@ -25,15 +25,13 @@ const App = () => {
     showUploadList: false,
   };
 
-  console.log('logJsons!!', logJsons);
-
   return (
     <div className={styles.root}>
       <Typography.Title level={1}>Log Viewer</Typography.Title>
       <Upload {...uploadProps}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
-      <Chart data={logJsons} />
+      <Chart config={getChartConfig(logJsons)} />
     </div>
   );
 };
