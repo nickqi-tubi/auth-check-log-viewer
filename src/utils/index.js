@@ -19,7 +19,7 @@ export const parseContentToJsons = (content) =>
 
 const STATUS_CODE_REGEX = /status code (\d{3})/i;
 
-export const parseStatusCode = (json) => {
+const parseStatusCode = (json) => {
   const { err } = json;
 
   if (!err) {
@@ -102,3 +102,11 @@ export const getChartConfig = (logJsons) => {
 
   return config;
 };
+
+export const getLogsData = (logJsons) =>
+  logJsons.map((json, idx) => ({
+    ...json,
+    key: idx,
+    time: dayjs(json.time).format('YYYY-MM-DD HH:mm:ss'),
+    statusCode: parseStatusCode(json),
+  }));
