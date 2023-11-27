@@ -1,4 +1,4 @@
-import { Line } from '@ant-design/plots';
+import { Area } from '@ant-design/plots';
 
 import styles from './Chart.module.scss';
 
@@ -7,7 +7,7 @@ const Chart = ({ config }) => {
     return null;
   }
 
-  return <Line className={styles.root} {...config} />;
+  return <Area className={styles.root} {...config} />;
 };
 
 export default Chart;
