@@ -2,6 +2,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { Button, Upload, Typography } from 'antd';
 import { useState } from 'react';
 
+import Chart from 'src/components/chart';
 import { parseContentToJsons } from 'src/utils';
 
 import styles from './App.module.scss';
@@ -32,6 +33,7 @@ const App = () => {
       <Upload {...uploadProps}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
+      <Chart data={logJsons} />
     </div>
   );
 };
