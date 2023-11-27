@@ -1,1 +1,1 @@
-# Sign-In Rate Simulator
+# Auth Check Log Viewer
