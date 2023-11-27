@@ -30,7 +30,7 @@ const App = () => {
     <div className={styles.root}>
       <Typography.Title level={1}>Log Viewer</Typography.Title>
       <Upload {...uploadProps}>
-        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+        <Button icon={<UploadOutlined />}>Upload Log File</Button>
       </Upload>
       <Chart config={getChartConfig(logJsons)} />
       <Logs data={getLogsData(logJsons)} />
