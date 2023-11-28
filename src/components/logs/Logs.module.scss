@@ -2,7 +2,10 @@
   margin-top: 2em;
 
   .search {
-    max-width: 300px;
-    margin-bottom: 1em;
+    margin: 0 0.5em 1em 0;
+  }
+
+  .select {
+    min-width: 120px;
   }
 }

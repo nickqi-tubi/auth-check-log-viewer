@@ -1,4 +1,4 @@
-import { Input, Table } from 'antd';
+import { Col, Row, Input, Table, Select } from 'antd';
 import dayjs from 'dayjs';
 import Fuse from 'fuse.js';
 import { useState } from 'react';
@@ -47,6 +47,11 @@ const Logs = ({ data }) => {
     placeholder: 'Filter logs',
   };
 
+  const selectProps = {
+    className: styles.select,
+    options: [{ label: 'All', value: '' }],
+  };
+
   const fuse = new Fuse(data, {
     keys: ['time', 'statusCode', 'msg'],
     threshold: 0.3,
@@ -66,9 +71,25 @@ const Logs = ({ data }) => {
     },
   };
 
+  const colProps = {
+    xs: 24,
+    sm: 12,
+    md: 10,
+    lg: 8,
+    xl: 6,
+    xxl: 5,
+  };
+
   return (
     <div className={styles.root}>
-      <Search {...searchProps} />
+      <Row gutter={12}>
+        <Col {...colProps}>
+          <Search {...searchProps} />
+        </Col>
+        <Col {...colProps}>
+          <Select {...selectProps} />
+        </Col>
+      </Row>
       <Table {...tableProps} />
     </div>
   );
