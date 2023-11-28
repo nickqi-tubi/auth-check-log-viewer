@@ -5,9 +5,9 @@ import _ from 'lodash';
 
 import { TIMEZONES } from 'src/constants';
 
-import dayjsRounding from './dayjsRounding';
+import dayjsRound from './dayjsRound';
 
-dayjs.extend(dayjsRounding);
+dayjs.extend(dayjsRound);
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
@@ -40,13 +40,13 @@ const parseStatusCode = (json) => {
   return 'unknown';
 };
 
-export const getChartConfig = (logJsons) => {
+export const getChartConfig = ({ logJsons, timezone }) => {
   const originData = logJsons.map((json) => {
     const statusCode = parseStatusCode(json);
 
     return {
       statusCode,
-      time: dayjs(json.time).round(5, 'seconds').format('YYYY-MM-DD HH:mm:ss'),
+      time: dayjsWithTimezone(json.time, timezone).round(5, 'seconds').format('YYYY-MM-DD HH:mm:ss'),
     };
   });
 
@@ -91,7 +91,7 @@ export const getChartConfig = (logJsons) => {
     isPercent: true,
     xAxis: {
       label: {
-        formatter: (value) => dayjs(value).format('HH:mm:ss'),
+        formatter: (value) => dayjsWithTimezone(value, timezone).format('HH:mm:ss'),
       },
     },
     yAxis: {

@@ -40,7 +40,7 @@ const App = () => {
       <Upload {...uploadProps}>
         <Button icon={<UploadOutlined />}>Upload Log File</Button>
       </Upload>
-      <Chart config={getChartConfig(logJsons)} />
+      <Chart config={getChartConfig({ logJsons, timezone })} />
       <Logs {...logsProps} />
     </div>
   );
