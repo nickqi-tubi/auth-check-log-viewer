@@ -6,6 +6,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { TIMEZONES } from 'src/constants';
+import { dayjsWithTimezone } from 'src/utils';
 
 import styles from './Logs.module.scss';
 
@@ -72,7 +73,7 @@ const Logs = ({ data, timezone, setTimezone }) => {
 
   const dataSource = (searchTerm ? fuse.search(searchTerm).map(({ item }) => item) : data).map((item) => ({
     ...item,
-    time: dayjs(item.time).format('YYYY-MM-DD HH:mm:ss'),
+    time: dayjsWithTimezone(item.time, timezone).format('YYYY-MM-DD HH:mm:ss'),
   }));
 
   const tableProps = {

@@ -1,9 +1,15 @@
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import _ from 'lodash';
+
+import { TIMEZONES } from 'src/constants';
 
 import dayjsRounding from './dayjsRounding';
 
 dayjs.extend(dayjsRounding);
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 export const parseContentToJsons = (content) =>
   content
@@ -109,3 +115,17 @@ export const getLogsData = (logJsons) =>
     key: idx,
     statusCode: parseStatusCode(json),
   }));
+
+export const dayjsWithTimezone = (time, timezone) => {
+  const localTime = dayjs(time);
+
+  if (timezone === TIMEZONES.LOCAL) {
+    return localTime;
+  }
+
+  if (timezone === TIMEZONES.UTC) {
+    return localTime.utc();
+  }
+
+  return localTime.tz(timezone);
+};

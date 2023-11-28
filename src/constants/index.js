@@ -3,5 +3,5 @@ export const TIMEZONES = {
   LOCAL: 'Local Timezone',
   UTC: 'UTC Timezone',
   PST: 'America/Los_Angeles',
-  CST: 'Asia/Beijing',
+  CST: 'Asia/Shanghai',
 };
