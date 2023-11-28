@@ -107,6 +107,5 @@ export const getLogsData = (logJsons) =>
   logJsons.map((json, idx) => ({
     ...json,
     key: idx,
-    time: dayjs(json.time).format('YYYY-MM-DD HH:mm:ss'),
     statusCode: parseStatusCode(json),
   }));

@@ -10,5 +10,6 @@ const now = dayjs();
 console.log({
   local: now.format('YYYY-MM-DD HH:mm:ss'),
   utc: now.utc().format('YYYY-MM-DD HH:mm:ss'),
-  america: now.tz('America/Los_Angeles').format('YYYY-MM-DD HH:mm:ss'),
+  losAngeles: now.tz('America/Los_Angeles').format('YYYY-MM-DD HH:mm:ss'),
+  beijing: now.tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss'),
 });

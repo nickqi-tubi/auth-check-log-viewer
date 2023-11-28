@@ -5,6 +5,8 @@ import { useState } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
+import { TIMEZONES } from 'src/constants';
+
 import styles from './Logs.module.scss';
 
 const { Search } = Input;
@@ -28,7 +30,16 @@ const columns = [
   }),
 ];
 
-const Logs = ({ data }) => {
+const colProps = {
+  xs: 24,
+  sm: 12,
+  md: 10,
+  lg: 8,
+  xl: 6,
+  xxl: 5,
+};
+
+const Logs = ({ data, timezone, setTimezone }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   if (!data.length) {
@@ -49,7 +60,9 @@ const Logs = ({ data }) => {
 
   const selectProps = {
     className: styles.select,
-    options: [{ label: 'All', value: '' }],
+    value: timezone,
+    options: Object.values(TIMEZONES).map((timezone) => ({ label: timezone, value: timezone })),
+    onChange: setTimezone,
   };
 
   const fuse = new Fuse(data, {
@@ -57,9 +70,13 @@ const Logs = ({ data }) => {
     threshold: 0.3,
   });
 
-  const dataSource = searchTerm ? fuse.search(searchTerm).map(({ item }) => item) : data;
+  const dataSource = (searchTerm ? fuse.search(searchTerm).map(({ item }) => item) : data).map((item) => ({
+    ...item,
+    time: dayjs(item.time).format('YYYY-MM-DD HH:mm:ss'),
+  }));
 
   const tableProps = {
+    className: styles.table,
     columns,
     dataSource,
     expandable: {
@@ -69,15 +86,6 @@ const Logs = ({ data }) => {
         </SyntaxHighlighter>
       ),
     },
-  };
-
-  const colProps = {
-    xs: 24,
-    sm: 12,
-    md: 10,
-    lg: 8,
-    xl: 6,
-    xxl: 5,
   };
 
   return (
