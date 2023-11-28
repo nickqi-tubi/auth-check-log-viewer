@@ -91,7 +91,7 @@ export const getChartConfig = ({ logJsons, timezone }) => {
     isPercent: true,
     xAxis: {
       label: {
-        formatter: (value) => dayjsWithTimezone(value, timezone).format('HH:mm:ss'),
+        formatter: (value) => dayjs(value).format('HH:mm:ss'),
       },
     },
     yAxis: {
