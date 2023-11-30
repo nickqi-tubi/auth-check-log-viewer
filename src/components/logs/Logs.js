@@ -68,7 +68,7 @@ const Logs = ({ data, timezone, setTimezone }) => {
 
   const fuse = new Fuse(data, {
     keys: ['time', 'statusCode', 'msg'],
-    threshold: 0.3,
+    threshold: 0,
   });
 
   const dataSource = (searchTerm ? fuse.search(searchTerm).map(({ item }) => item) : data).map((item) => ({
